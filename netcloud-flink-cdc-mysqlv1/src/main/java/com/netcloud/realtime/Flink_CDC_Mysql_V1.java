@@ -19,6 +19,13 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
  *     <artifactId>flink-connector-mysql-cdc</artifactId>
  *     <version>2.2.1</version>
  * </dependency>
+ *
+ * flink1.19以上版本才支持以下依赖的API
+ * <dependency>
+ *     <groupId>org.apache.flink</groupId>
+ *     <artifactId>flink-connector-mysql-cdc</artifactId>
+ *     <version>3.1.1</version>
+ * </dependency>
  */
 
 public class Flink_CDC_Mysql_V1 {
@@ -37,12 +44,12 @@ public class Flink_CDC_Mysql_V1 {
                 .password("Sunmnet@123")
                 .databaseList("test")
                 //配置目前用到的表
-                .tableList("test.test1")
+                .tableList("test.test1,test.test2")
                 //.deserializer(new JsonDebeziumDeserializationSchema())
                 .deserializer(new CustomerDeserialization())
                 //.debeziumProperties(prop)
                 //从指定文件的指定位置同步，通过mysql> SHOW MASTER STATUS;查看
-                .startupOptions(StartupOptions.latest())
+                .startupOptions(StartupOptions.initial())
                 .build();
         DataStream<String> streamSource = env.fromSource(mySqlSource, WatermarkStrategy.noWatermarks(),"mysqlSource");
         streamSource.print();
