@@ -34,5 +34,12 @@
         <version>2.2.1</version>
     </dependency>
     ```
+## netcloud-flink-cdc-mysqlv1
 
-**注：** `netcloud-flink-cdc-mysqlv1` 与 `Flink 1.14.5` 兼容。
+Flink1.14.5v 采集Mysql binlog实现数据采集
+
+## netcloud-flink-cdc-mysqlv2
+
+Flink1.20.0v 采集Mysql binlog实现数据采集
+
+
