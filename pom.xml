@@ -11,6 +11,8 @@
     <modules>
         <module>netcloud-flink-cdc-mysqlv1</module>
         <module>netcloud-flink-cdc-mysqlv2</module>
+        <module>netcloud-flink-learning-v1.20</module>
+        <module>flink-1.17.0</module>
     </modules>
 
 
