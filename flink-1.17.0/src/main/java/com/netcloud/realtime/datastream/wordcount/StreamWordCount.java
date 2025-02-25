@@ -13,6 +13,8 @@ import org.apache.flink.util.Collector;
  * @date 2024-11-20 00:17:08
  * @email netcloudtec@163.com
  * @description
+ * nc -lk 9999
+ * 执行Main方法参数配置 --host 127.0.0.1 --port 9999
  */
 public class StreamWordCount {
     public static void main(String[] args) {
