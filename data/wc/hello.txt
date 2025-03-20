@@ -1,1 +1,24 @@
-flink spark hive
+Client：
+当我们提交一个Flink程序时，得首先创建一个Client。
+Client对用户提交的Flink程序进行预处理，并通过RPC方式发送给分发器(Dispatcher)。
+
+Dispatcher:
+Dispatcher 提供REST接口来接收Client的应用提交。
+负责启动JobManager和提交应用给JobManager。
+Dispatcher也会启动一个Web UI，用来方便地展示和监控作业执行的信息。
+Dispatcher在架构中可能并不是必需的，这取决于应用提交运行的方式。
+
+JobManager：
+集群中的管理者（Master）的角色，它是整个集群的协调者。
+负责接收Flink Job并向资源管理器（ResourceManager）请求资源（TaskManager上的slot）。
+获取足够的资源后，它将任务执行图分发到TaskManager上的slot上执行。
+
+资源管理器（ResourceManager）
+主要负责管理任务管理器（TaskManager）的插槽（slot）。
+ResourceManager会将有空闲插槽的TaskManager分配给JobManager。如果ResourceManager没有足够的插槽来满足JobManager的请求，它还可以向资源提供平台发起会话，以提供启动TaskManager进程的容器。另外，ResourceManager还负责终止空闲的TaskManager，释放计算资源。
+
+TaskManager：
+是负责执行计算的Worker进程
+Flink集群中会有多个TaskManager运行，每一个TaskManager都包含了一定数量的插槽。插槽的数量限制了TaskManager能够执行的任务数量。
+启动之后，TaskManager会向资源管理器注册它的插槽；提供给JobManager调用。
+在执行过程中，一个TaskManager可以跟其它运行同一应用程序的TaskManager交换数据。
